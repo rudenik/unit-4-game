@@ -1,0 +1,22 @@
+body{
+   background-image: url("../images/stardestroyerbackground.jpg");
+    color:white;
+}
+#yourcharacter{
+    font-family: 'Cabin', sans-serif;
+}
+#enemiesavailable{
+    font-family: 'Lobster', cursive;
+}
+#defender{
+    font-family: 'Exo', sans-serif;
+}
+#fightsection{
+    font-family: 'Exo', sans-serif;
+}
+#gameinfo{
+    font-family: 'Cabin', sans-serif;
+}
+#heroes{
+    float: left;
+}
