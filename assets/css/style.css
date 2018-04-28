@@ -13,24 +13,35 @@ body{
     /* display: table; */
     display: flex;
     position: static;
-    width: 75%;
+    width: 100%;
     /* margin: 15px; */
-    /* height: 150px; */
+    height: 100%;
+    line-height: 2em;
 }
 .h6{
     position: relative;
 }
 #yourcharacter{
     font-family: 'Cabin', sans-serif;
-    /* display: flex; */
+    /* display: static; */
     position: relative;
     margin: 15px;
     height: 150px;
     width: 155px;
+    
+    /* top: 150px; */
+    /* left: -650px; */
    
 }
+.row #yourcharacter{
+    display:none;
+}
+
 #yourcharacter .playableCharacter{
     background-color: green;
+    border: solid;
+    border-width: 3px;
+    border-color: white;
 }
 #enemiesavailable{
     font-family: 'Lobster', cursive;
@@ -38,6 +49,7 @@ body{
     margin: 15px;
     /* float: right; */
 }
+
 #defender{
     font-family: 'Exo', sans-serif;
     position: relative;
@@ -46,6 +58,9 @@ body{
 }
 #defender .enemies{
     background-color: red;
+    border: solid;
+    border-width: 3px;
+    border-color: black;
 }
 #fightsection{
     font-family: 'Exo', sans-serif;
@@ -81,4 +96,7 @@ body{
 .enemies{
     margin: 15px;
     position: relative;
+    /* border: solid;
+    border-width: 3px;
+    border-color: black; */
 }
