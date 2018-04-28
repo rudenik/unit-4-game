@@ -1,22 +1,84 @@
 body{
    background-image: url("../images/stardestroyerbackground.jpg");
     color:white;
+    position: absolute;
+    width:100%
 }
-#yourcharacter{
-    font-family: 'Cabin', sans-serif;
-}
-#enemiesavailable{
-    font-family: 'Lobster', cursive;
-}
-#defender{
-    font-family: 'Exo', sans-serif;
-}
-#fightsection{
-    font-family: 'Exo', sans-serif;
-}
-#gameinfo{
-    font-family: 'Cabin', sans-serif;
+#container{
+    margin: 25px;
+    
 }
 #heroes{
     float: left;
+    /* display: table; */
+    display: flex;
+    position: static;
+    width: 75%;
+    /* margin: 15px; */
+    /* height: 150px; */
+}
+.h6{
+    position: relative;
+}
+#yourcharacter{
+    font-family: 'Cabin', sans-serif;
+    /* display: flex; */
+    position: relative;
+    margin: 15px;
+    height: 150px;
+    width: 155px;
+   
+}
+#yourcharacter .playableCharacter{
+    background-color: green;
+}
+#enemiesavailable{
+    font-family: 'Lobster', cursive;
+    position: static;
+    margin: 15px;
+    /* float: right; */
+}
+#defender{
+    font-family: 'Exo', sans-serif;
+    position: relative;
+    margin: 15px;
+    width: 155px;
+}
+#defender .enemies{
+    background-color: red;
+}
+#fightsection{
+    font-family: 'Exo', sans-serif;
+    position: relative;
+    margin: 15px;
+}
+#attack{
+    margin: 15px;
+}
+#gameinfo{
+    font-family: 'Cabin', sans-serif;
+    position: static;
+    margin: 15px;
+}
+
+#character-container{
+    color: black;
+    text-align: center;
+    background-color: white;
+    padding: 5px 15px 5px 15px;
+    /* display: table-cell; */
+    /* margin: 5px; */
+}
+
+.playableCharacter{
+    color: black;
+    text-align: center;
+    background-color: white;
+    padding: 5px 15px 5px 15px;
+    /* display: table-cell; */
+    margin: 5px;
+}
+.enemies{
+    margin: 15px;
+    position: relative;
 }
