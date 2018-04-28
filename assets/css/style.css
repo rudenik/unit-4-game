@@ -37,7 +37,7 @@ body{
     display:none;
 }
 
-#yourcharacter .playableCharacter{
+#yourcharacter .hero{
     background-color: green;
     border: solid;
     border-width: 3px;
@@ -56,7 +56,7 @@ body{
     margin: 15px;
     width: 155px;
 }
-#defender .enemies{
+#defender .villain{
     background-color: red;
     border: solid;
     border-width: 3px;
