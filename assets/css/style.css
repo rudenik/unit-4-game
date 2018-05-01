@@ -26,10 +26,8 @@ p{
     font-family: 'Cabin', sans-serif;
     position: relative;
     margin: 15px;
-    height: 150px;
-    width: 100%;
-    
-   
+    width: 155px;
+ 
 }
 .row #yourcharacter{
     display:none;
@@ -45,7 +43,7 @@ p{
     font-family: 'Lobster', cursive;
     position: static;
     margin: 15px;
-    /* float: right; */
+    
 }
 
 #defender{
@@ -90,8 +88,7 @@ p{
     text-align: center;
     background-color: white;
     padding: 5px 15px 5px 15px;
-    /* display: table-cell; */
-    /* margin: 5px; */
+ 
 }
 
 .playableCharacter{
@@ -99,13 +96,11 @@ p{
     text-align: center;
     background-color: white;
     padding: 5px 15px 5px 15px;
-    /* display: table-cell; */
+
     margin: 5px;
 }
 .enemies{
     margin: 15px;
     position: relative;
-    /* border: solid;
-    border-width: 3px;
-    border-color: black; */
+
 }
