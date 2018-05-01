@@ -2,11 +2,15 @@ body{
    background-image: url("../images/stardestroyerbackground.jpg");
     color:white;
     position: absolute;
-    width:100%
+    width:100%;
+    text-shadow: 1px 1px #000000;
 }
 #container{
     margin: 25px;
     
+}
+#yourcharacter .hero, #enemiesavailable .enemies, #defender .villain, #defeated .dead, #heroes{
+    text-shadow: none;
 }
 #heroes{
     float: left;
@@ -23,14 +27,11 @@ body{
 }
 #yourcharacter{
     font-family: 'Cabin', sans-serif;
-    /* display: static; */
     position: relative;
     margin: 15px;
     height: 150px;
     width: 155px;
     
-    /* top: 150px; */
-    /* left: -650px; */
    
 }
 .row #yourcharacter{
@@ -51,7 +52,7 @@ body{
 }
 
 #defender{
-    font-family: 'Exo', sans-serif;
+    
     position: relative;
     margin: 15px;
     width: 155px;
@@ -74,6 +75,12 @@ body{
     font-family: 'Cabin', sans-serif;
     position: static;
     margin: 15px;
+    white-space: pre-wrap;
+}
+#defeated .dead{
+    color: black;
+    margin: 5px;
+    padding: 5px 15px 5px 15px;
 }
 
 #character-container{

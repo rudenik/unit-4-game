@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html lang="en">
-
 <head>
     <title>SWRPG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +12,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
     <script src="assets/javascript/game.js" defer></script>
 </head>
-
 <body>
     <div id="container">
+        <div id="gameinfo" class="row"></div>
         <div class=col>
             <div id="heroes" class="row"></div>
-        
             <br>
             <div id="yourcharacter" class="row">Your Character</div>
             <br>
@@ -31,10 +29,11 @@
                 Enemies Available to Attack
             </div>
             <br>
+            <p>Deafeted enemies</p>
+            <div id="defeated" class="row"></div>
         </div>
-        <div id="gameinfo" class="row"></div>
     </div>
-    <aside id="defeated" class="aside"></aside>
+
 </body>
 
 </html>

@@ -20,7 +20,7 @@
 //                     "image":"assets/images/Zuckuss.jpg"}, 
 var characters = [{
     "name": "IG 88",
-    "hp": 180,
+    "hp": 110,
     "attack": 10,
     "counter": 25,
     "image": "assets/images/ig_88.jpg",
@@ -46,7 +46,7 @@ var characters = [{
 {
     "name": "K-2SO",
     "hp": 120,
-    "attack": 8,
+    "attack": 12,
     "counter": 8,
     "image": "assets/images/k-2so.jpg",
     draw: function () {
@@ -68,7 +68,7 @@ var characters = [{
 {
     "name": "EV-9D9",
     "hp": 150,
-    "attack": 20,
+    "attack": 15,
     "counter": 20,
     "image": "assets/images/EV-9D9.jpg",
     draw: function () {
@@ -90,8 +90,8 @@ var characters = [{
 {
     "name": "Battle Droid",
     "hp": 100,
-    "attack": 5,
-    "counter": 5,
+    "attack": 7,
+    "counter": 7,
     "image": "assets/images/Battle-Droid.jpg",
     draw: function () {
         var charContainer = $("<div>");
@@ -116,55 +116,35 @@ var villainHP;
 var heroAtt;
 var villainAtt;
 var baseAtt;
+var numEnemyDefeated = 0;
+var gameInfoStr = "";
+var audio;
+var heroes = $("#heroes");
+for (elements in characters) {
+    heroes.append(characters[elements].draw());
+  
+}
+$(".playableCharacter").on("click", function () {
+    $(this).removeClass("playableCharacter");
+    $(this).addClass("hero")
+    var yourCharacter = JSON.parse($(this).attr("data-charInfo"));
+    heroHP = yourCharacter.hp;
+    heroAtt = yourCharacter.attack;
+    baseAtt = yourCharacter.attack;
+    audio = new Audio("assets/audio/opening.mp3");
+    audio.play();
+    $(this).clone().appendTo("#yourcharacter");
+    $(this).remove();
+    heroes.children().removeClass("playableCharacter")
+    heroes.children().addClass("enemies");
+    heroes.children().clone().appendTo("#enemiesavailable");
+    heroes.empty();
+    gameIsOn = true;
 
-// window.onload = function () {
-    var heroes = $("#heroes");
-    //    heroes.append(characters[0].draw())
-    for (elements in characters) {
-        heroes.append(characters[elements].draw());
-        //     var charContainer = $("<div>");
-        //     var textSpan = $("<div>");
-        //     var hpSpan = $("<div>");
-        //     textSpan.text(characters[elements].name).attr("id", "nameDiv");
-        //     hpSpan.text(characters[elements].hp).attr("id", "hpDiv");
-        //     var charImage = $("<img>");
-        //     charImage.attr("src", characters[elements].image).attr("height", "100").attr("width", "125");
-        //     charContainer.attr("id", "character-container");
-        //     charContainer.addClass("playableCharacter")
-        //     charContainer.append(textSpan);
-        //     charContainer.append(charImage);
-        //     charContainer.append(hpSpan);
-        //     heroes.append(charContainer);
+})
 
-    }
-    $(".playableCharacter").on("click", function () {
-        console.log(this);
-        console.log("clicked e: " + this);
-        $(this).removeClass("playableCharacter");
-        $(this).addClass("hero")
-        var yourCharacter = JSON.parse($(this).attr("data-charInfo"));
-        heroHP = yourCharacter.hp;
-        heroAtt = yourCharacter.attack;
-        baseAtt = yourCharacter.attack;
-        console.log("You have HP of: " + heroHP + " and Attack is: " + heroAtt);
-        $(this).clone().appendTo("#yourcharacter");
-        $(this).remove();
-        //var charInfo = $(this.get());
-        //console.log("Char info: " + charInfo);
-        heroes.children().removeClass("playableCharacter")
-        heroes.children().addClass("enemies");
-        heroes.children().clone().appendTo("#enemiesavailable");
-        heroes.empty();
-        //var enemies = $("#enemiesavailable.playableCharacter").children();
-        //enemies.attr("class", "enemies");
-        
-        // console.log("character?: " + yourCharacter.hp);
-    })
-    
-    $("#enemiesavailable").on("click", ".enemies", function () {
-        //var defender = $("");
-        if(!enemySelected){
-        console.log("clicked on enemy: " + this);
+$("#enemiesavailable").on("click", ".enemies", function () {
+    if (!enemySelected) {
         $(this).removeClass("enemies");
         $(this).addClass("villain");
         var yourVillain = JSON.parse($(this).attr("data-charInfo"));
@@ -172,26 +152,52 @@ var baseAtt;
         villainHP = yourVillain.hp;
         $(this).clone().appendTo("#defender");
         $(this).remove();
-        gameIsOn = true;
         enemySelected = true;
+    }
+
+})
+$("#attack").on("click", function () {
+    if (gameIsOn) {
+        villainHP = villainHP - heroAtt;
+        if (villainHP <= 0) {
+            $(".villain").children("#hpdiv").text("0");
+            $("#gameinfo").text("You defeated " + $(".villain").children("#namediv").text() + ". Please select another enemy");
+            $(".villain").clone().appendTo("#defeated");
+            $("#defeated").children(".villain").addClass("dead");
+            $("#defeated").children(".villain").removeClass("villain");
+            $("#defender").empty()
+            enemySelected = false;
+            numEnemyDefeated++;
+            audio = new Audio("assets/audio/blaster.mp3")
+            audio.play()
+            
+            if (numEnemyDefeated >= 3) {
+                $("#gameinfo").text("You win!");
+                gameIsOn = false;
+            }
+
+        } else {
+            heroHP = heroHP - villainAtt;
+            if (heroHP <= 0) {
+                $(".hero").children("#hpdiv").text("0");
+                $("#gameinfo").text("You were defeated by " + $(".villain").children("#namediv").text() + ". Please restart the game");
+                audio = new Audio("assets/audio/gameover.mp3");
+                audio.play();
+                gameIsOn = false;
+            } else {
+                audio = new Audio("assets/audio/blaster.mp3")
+                audio.play()
+                gameInfoStr = "You attacked " + $(".villain").children("#namediv").text() + " for " + heroAtt + " damage. ";
+                gameInfoStr += "\n";
+                gameInfoStr += $(".villain").children("#namediv").text() + " attacked you for " + villainAtt + " damage";
+                $("#gameinfo").text(gameInfoStr);
+                heroAtt = heroAtt + baseAtt;
+                var heroHPDiv = $(".hero").children("#hpdiv");
+                heroHPDiv.text(heroHP);
+                $(".villain").children("#hpdiv").text(villainHP);
+
+            }
         }
-    
-    })
-   $("#attack").on("click", function(){
-    console.log("You attacked the villain for " + heroAtt + " damage");
-    villainHP = villainHP-heroAtt; 
-    console.log("His HP is now " + (villainHP));
-    heroHP = heroHP - villainAtt;
-    heroAtt = heroAtt + baseAtt;
-    console.log("Your attack is now " + heroAtt);
-    //jquery hero element to update THAT text for hp left
-    //jquery villain element to update that text for hp left
-    //printTo element to update game info.
+    }
+})
 
-   })
-
-function printToElement(text, elementID){
-    var buildEleStr= "#"+elementID
-    var eleToPrintTo = $(buildEleStr).text(text);
-}
-// }
