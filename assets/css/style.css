@@ -6,21 +6,18 @@ body{
     text-shadow: 1px 1px #000000;
 }
 #container{
-    margin: 25px;
+    margin: 15px, 25px, 25px, 25px;
+    padding: 15px;
     
+}
+p{
+    margin: 15px;
 }
 #yourcharacter .hero, #enemiesavailable .enemies, #defender .villain, #defeated .dead, #heroes{
     text-shadow: none;
 }
 #heroes{
-    float: left;
-    /* display: table; */
-    display: flex;
-    position: static;
-    width: 100%;
-    /* margin: 15px; */
-    height: 100%;
-    line-height: 2em;
+    margin: 15px;
 }
 .h6{
     position: relative;
@@ -30,7 +27,7 @@ body{
     position: relative;
     margin: 15px;
     height: 150px;
-    width: 155px;
+    width: 100%;
     
    
 }
@@ -81,6 +78,11 @@ body{
     color: black;
     margin: 5px;
     padding: 5px 15px 5px 15px;
+}
+#defeated{
+    position: relative;
+    margin: 15px;
+    
 }
 
 #character-container{
