@@ -1,24 +1,101 @@
-// var characters = [{"name":"4-LOM",
-//                     "hp":0,
-//                     "attack":0,
-//                     "counter":0,
-//                     "image":"assets/images/4-LOM.jpg"}, 
-//                     {"name":"Bossk",
-//                     "hp":0,
-//                     "attack":0,
-//                     "counter":0,
-//                     "image":"assets/images/Bossk.jpg"}, 
-//                     {"name":"Dengar",
-//                     "hp":0,
-//                     "attack":0,
-//                     "counter":0,
-//                     "image":"assets/images/Dengar.jpg"}, 
-//                     {"name":"Zuckuss",
-//                     "hp":0,
-//                     "attack":0,
-//                     "counter":0,
-//                     "image":"assets/images/Zuckuss.jpg"}, 
-var characters = [{
+var bountyHunters = [{"name":"4-LOM",
+                    "hp":1140,
+                    "attack":20,
+                    "counter":20,
+                    "image":"assets/images/4-LOM.jpg",
+                    draw: function () {
+                        var charContainer = $("<div>");
+                        var textDiv = $("<div>");
+                        var hpDiv = $("<div>");
+                        var charImg = $("<img>");
+                        textDiv.text(this.name).attr("id", "namediv");
+                
+                        hpDiv.text(this.hp).attr("id", "hpdiv");
+                
+                        charImg.attr({ src: this.image, height: 100, width: 125, alt: "characterImage" });
+                
+                        charContainer.append(textDiv, charImg, hpDiv);
+                        charContainer.attr("id", "character-container");
+                        charContainer.addClass("playableCharacter");
+                        charContainer.attr("data-charInfo", JSON.stringify(this));
+                        return charContainer;
+                
+                    }
+                },
+                     
+                    {"name":"Bossk",
+                    "hp":1200,
+                    "attack":30,
+                    "counter":25,
+                    "image":"assets/images/Bossk.jpg",
+                    draw: function () {
+                        var charContainer = $("<div>");
+                        var textDiv = $("<div>");
+                        var hpDiv = $("<div>");
+                        var charImg = $("<img>");
+                        textDiv.text(this.name).attr("id", "namediv");
+                
+                        hpDiv.text(this.hp).attr("id", "hpdiv");
+                
+                        charImg.attr({ src: this.image, height: 100, width: 125, alt: "characterImage" });
+                
+                        charContainer.append(textDiv, charImg, hpDiv);
+                        charContainer.attr("id", "character-container");
+                        charContainer.addClass("playableCharacter");
+                        charContainer.attr("data-charInfo", JSON.stringify(this));
+                        return charContainer;
+                
+                    }
+                }, 
+                    {"name":"Dengar",
+                    "hp":1050,
+                    "attack":15,
+                    "counter":30,
+                    "image":"assets/images/Dengar.jpg",
+                    draw: function () {
+                        var charContainer = $("<div>");
+                        var textDiv = $("<div>");
+                        var hpDiv = $("<div>");
+                        var charImg = $("<img>");
+                        textDiv.text(this.name).attr("id", "namediv");
+                
+                        hpDiv.text(this.hp).attr("id", "hpdiv");
+                
+                        charImg.attr({ src: this.image, height: 100, width: 125, alt: "characterImage" });
+                
+                        charContainer.append(textDiv, charImg, hpDiv);
+                        charContainer.attr("id", "character-container");
+                        charContainer.addClass("playableCharacter");
+                        charContainer.attr("data-charInfo", JSON.stringify(this));
+                        return charContainer;
+                
+                    }
+                }, 
+                    {"name":"Zuckuss",
+                    "hp":900,
+                    "attack":35,
+                    "counter":22,
+                    "image":"assets/images/Zuckuss.jpg",
+                    draw: function () {
+                        var charContainer = $("<div>");
+                        var textDiv = $("<div>");
+                        var hpDiv = $("<div>");
+                        var charImg = $("<img>");
+                        textDiv.text(this.name).attr("id", "namediv");
+                
+                        hpDiv.text(this.hp).attr("id", "hpdiv");
+                
+                        charImg.attr({ src: this.image, height: 100, width: 125, alt: "characterImage" });
+                
+                        charContainer.append(textDiv, charImg, hpDiv);
+                        charContainer.attr("id", "character-container");
+                        charContainer.addClass("playableCharacter");
+                        charContainer.attr("data-charInfo", JSON.stringify(this));
+                        return charContainer;
+                
+                    }
+                }] 
+var droids = [{
     "name": "IG 88",
     "hp": 110,
     "attack": 10,
@@ -120,11 +197,46 @@ var numEnemyDefeated = 0;
 var gameInfoStr = "";
 var audio;
 var heroes = $("#heroes");
-for (elements in characters) {
-    heroes.append(characters[elements].draw());
-  
+var bountyOn = false;
+
+startGame();
+function showRestart(){
+    var restartButton = $("<button>");
+    restartButton.text("Restart");
+    restartButton.addClass("btn btn-warning");
+    restartButton.attr("id", "restartbutton");
+    $("#gameinfo").append(restartButton);
+    
 }
-$(".playableCharacter").on("click", function () {
+function showBountyStart(){
+    var bountyStartButton = $("<button>");
+    bountyStartButton.text("Level 2");
+    bountyStartButton.addClass("btn btn-light");
+    bountyStartButton.attr("id", "bountstartbutton");
+    $("#gameinfo").append(bountyStartButton);
+
+}
+function startGame(){
+    for (elements in droids) {
+        heroes.append(droids[elements].draw());
+    }
+    numEnemyDefeated = 0;
+    gameIsOn = true;
+    enemySelected = false;
+}
+function bountyStart(){
+    for (elements in bountyHunters){
+        heroes.append(bountyHunters[elements].draw());
+    }
+    
+    $("body").css('background-image','url("assets/images/Geonosis.jpg")')
+    numEnemyDefeated = 0;
+    gameIsOn = true;
+    enemySelected = false;
+    bountyOn = true;
+}
+
+$("#heroes").on("click", ".playableCharacter", function () {
     $(this).removeClass("playableCharacter");
     $(this).addClass("hero")
     var yourCharacter = JSON.parse($(this).attr("data-charInfo"));
@@ -139,6 +251,7 @@ $(".playableCharacter").on("click", function () {
     heroes.children().addClass("enemies");
     heroes.children().clone().appendTo("#enemiesavailable");
     heroes.empty();
+    $("#gameinfo").css('height', '50px');
     gameIsOn = true;
 
 })
@@ -156,10 +269,33 @@ $("#enemiesavailable").on("click", ".enemies", function () {
     }
 
 })
+$("#gameinfo").on("click", "#restartbutton", function(){
+    $("#defeated").children().remove();
+    $("#defender").children().remove();
+    $("#enemiesavailable").children().remove();
+    $("#yourcharacter").children().remove();
+    $("#gameinfo").children().remove()
+    $("#gameinfo").text("Pick a Character");
+    startGame();
+})
+$("#gameinfo").on("click", "#bountstartbutton", function(){
+    $("#defeated").children().remove();
+    $("#defender").children().remove();
+    $("#enemiesavailable").children().remove();
+    $("#yourcharacter").children().remove();
+    $("#gameinfo").children().remove();
+    $("#gameinfo").text("Welcome to Level 2, Pick a Character");
+    bountyStart();
+})
+
 $("#attack").on("click", function () {
-    if (gameIsOn) {
+    if (gameIsOn && enemySelected) {
         villainHP = villainHP - heroAtt;
         if (villainHP <= 0) {
+            if(bountyOn){
+                audio = new Audio("assets/audio/scream.mp3")
+                audio.play();
+            }
             $(".villain").children("#hpdiv").text("0");
             $("#gameinfo").text("You defeated " + $(".villain").children("#namediv").text() + ". Please select another enemy");
             $(".villain").clone().appendTo("#defeated");
@@ -174,6 +310,8 @@ $("#attack").on("click", function () {
             if (numEnemyDefeated >= 3) {
                 $("#gameinfo").text("You win!");
                 gameIsOn = false;
+                showRestart();
+                showBountyStart();
             }
 
         } else {
@@ -184,6 +322,7 @@ $("#attack").on("click", function () {
                 audio = new Audio("assets/audio/gameover.mp3");
                 audio.play();
                 gameIsOn = false;
+                showRestart();
             } else {
                 audio = new Audio("assets/audio/blaster.mp3")
                 audio.play()

@@ -29,6 +29,9 @@ p{
     width: 155px;
  
 }
+.btn{
+    margin-left: 15px;   
+}
 .row #yourcharacter{
     display:none;
 }
